@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Input-Element</title>
+    <style>
+        .bar {
+            height: 20px;
+            background: rgba(0, 0, 255, 0.3);
+            transition: all 1s;
+            width: 0;
+        }
+    </style>
+</head>
+<body>
+<form>
+    <input type="text" placeholder="Name eingeben">
+    <button type="submit">OK</button>
+</form>
+<p class="result">Bitte schreibe hier deinen Namen hin</p>
+
+<div class="bar"></div>
+
+<script src="Namen2016.js"></script>
+<script src="jquery-3.2.1.min.js"></script>
+<script>
+    var name;
+
+    function onSubmit(event) {
+        event.preventDefault();
+        name = $("input").val();
+        // TODO
+        // Jedes Objekt im Namens-Array prüfen
+        // entspricht der Name dem eingegeben Namen?
+        // wenn ja: merken und die Anzahl ausgeben
+
+        // Sublime: Packagecontrol installieren, dann Prettifier
+
+
+        // { - Klammer: Body (Sammlung an Befehlen), der nur unter bestimmten Bedingungen ausgeführt wird
+        // ( Bedingung: Führe die Schleife solange aus, wie die Bedingung zutrifft
+        // names.length: Länge des Arrays, welches alle Namen enthält: Im Endeffekt: while(i < 2)
+        // Iteration 1: i ist 0, Bedingung trifft zu
+        var nameVorhanden = false;
+        var i = 0;
+        while (i < names.length) {
+            // names[i]: i ist eine Zahl wie 0 oder 1 und names[i] ist damit das Namensobjekt
+            // Bedingung: entspricht der Name im Namensobjekt dem eingegeben Namen?
+            if (names[i].vorname.toLowerCase() == name.toLowerCase()) {
+                // wenn ja: nameVorhanden wird true
+                nameVorhanden = true;
+                // wenn ja: Schleife abbrechen!
+                break;
+            }
+            i++;
+        }
+        if (nameVorhanden) {
+            $('.result').text("Hallo " + names[i].vorname + " wurde " + names[i].anzahl);
+            var percent = names[i].anzahl / 43 * 100;
+            $('.bar')
+                .css('width', percent + '%')
+                .text(Math.round(percent) + '%');
+        }
+        else {
+            if (name) {
+                $('p').text("Hallo " + name);
+                $('.bar')
+                    .css('width', 0)
+                    .text('');
+            } else {
+            }
+        }
+    }
+
+    $('form').on('submit', onSubmit);
+</script>
+</body>
+</html>

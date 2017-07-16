@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Der IFP-Alkoholtest</title>
+</head>
+<body>
+<!-- HTML Elemente: Eingabefelder
+Number: Wie viel Bier hast du getrunken?
+Select: Geschlecht (männlich, weiblich),
+Number: Gewicht
+Button per Click
+Ergebnis-Element
+Notiz:Alkoholmenge in Gramm/ Körpergewicht in KG * Anteil Körperflüssigkeit -->
+
+<!-- Form Element, damit die Browser-Validierung greift -->
+<form>
+    <!-- placeholder = Vorschaubild und verschwindet beim reinschreiben, min = damit keine negativen Zahlen angezeigt werden-->
+    <!-- required Attribut: Feld ist erforderlich -->
+    <!-- min Attribut: Kleinere Werte sind nicht erlaubt -->
+    <!-- Step: In diesen Schritten kann der Wert erhöht werden -->
+    <p class="Biermenge"><input type="number" step="0.01" required min="0"
+                                placeholder="Wie viel Liter Bier hast du getrunken?">
+    </p>
+    <p class="Geschlecht">
+        <select required>
+            <option value="weiblich">weiblich</option>
+            <option value="männlich">männlich</option>
+        </select>
+    </p>
+    <p class="Gewicht"><input type="number" required min="0" placeholder="Gewicht in Kg"></p>
+
+    <button class="submit">senden</button>
+</form>
+
+<p class="Ergebnis"></p>
+
+<script>
+    /*
+     addEventListener: ButtonClick
+     Query.Selector: Eingaben einsammeln
+     Eingabewerte umrechnen (siehe Formel)
+     Ergebnis ausgeben
+     */
+    document.querySelector("form").addEventListener("submit", PromilleOnClick);
+
+    function PromilleOnClick(event) {
+        event.preventDefault();
+        var Biermenge = document.querySelector(".Biermenge input").value;
+        var Geschlecht = document.querySelector(".Geschlecht select").value;
+        var Gewicht = document.querySelector(".Gewicht input").value;
+        //ab jetzt rechnen wir um - vorher haben wir Eingaben gesammelt
+        var BiermengeInMl = Biermenge * 1000;
+        var GrammAlkohol = BiermengeInMl * 0.048;
+        var AnteilKoerperfluessigkeit = 0.68;
+        if (Geschlecht == "weiblich") {
+            AnteilKoerperfluessigkeit = 0.55;
+        }
+        var Promillewert = GrammAlkohol / Gewicht * AnteilKoerperfluessigkeit;
+        var PromilleLesbar = Math.round(Promillewert * 100) / 100;
+
+        document.querySelector(".Ergebnis").innerHTML = "Dein Promillewert liegt bei " + PromilleLesbar.toLocaleString();
+
+
+    }
+
+</script>
+</body>
+</html>
+
+
+
+

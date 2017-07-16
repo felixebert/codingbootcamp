@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+    <style>
+        img {
+            transition: all 3s;
+        }
+
+        .rotate {
+            transform: rotate(90deg);
+            opacity: 0.2;
+            border: 5px solid #66fff3;
+        }
+    </style>
+</head>
+<body>
+<img src="http://random.cat/i/021_-_a3CZCZi.gif">
+<script>
+    setTimeout(function() {
+        document.querySelector("img").style.transform = 'rotate(90deg)';
+    }, 3000);
+</script>
+</body>
+</html>
